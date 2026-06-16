@@ -1,7 +1,7 @@
 ---
 title: "FASTQ QC rescue: diagnosing and fixing messy sequencing data"
 subtitle: "Four samples came in. Three have problems. Here's how I find and fix them."
-author: "Peter Ristow, PhD — Principal Scientist (NGS)"
+author: "Peter Ristow, PhD — NGS Bioinformatics"
 date: today
 jupyter: python3
 ---
@@ -12,7 +12,7 @@ jupyter: python3
 > the diagnosis verifiable, the defects here were *deliberately injected* — so QC should detect
 > exactly what we put in.
 >
-> *Roche Principal Scientist (NGS) & PhD — I turn sequencing data into clean, reproducible answers.*
+> *PhD bioinformatician & NGS specialist — I turn sequencing data into clean, reproducible answers.*
 
 ::: {.callout-note collapse="true"}
 ## How to reproduce this (one command)

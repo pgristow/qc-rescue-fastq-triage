@@ -4,7 +4,7 @@
 [![Live report](https://img.shields.io/badge/live%20report-GitHub%20Pages-2e7d32)](https://pgristow.github.io/qc-rescue-fastq-triage/)
 [![Made with Quarto](https://img.shields.io/badge/made%20with-Quarto-447099)](https://quarto.org)
 
-> **Roche Principal Scientist (NGS) & PhD — I turn sequencing data into clean, reproducible answers.**
+> **PhD bioinformatician & NGS specialist — I turn sequencing data into clean, reproducible answers.**
 
 The most common paid bioinformatics request isn't a fancy analysis — it's *"my run looks weird,
 what's wrong with my data?"* This repo takes four samples, **diagnoses** each, **fixes** it, and

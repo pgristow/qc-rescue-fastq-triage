@@ -1,7 +1,7 @@
 ---
 title: "FASTQ Quality-Control Triage — Summary Report"
 subtitle: "Sample deliverable · 4-sample run"
-author: "Peter Ristow, PhD — Principal Scientist (NGS)"
+author: "Peter Ristow, PhD — NGS Bioinformatics"
 date: today
 format:
   typst:
@@ -62,5 +62,5 @@ suspected sample swap is diagnosed via genotype/sex concordance, not read QC.
 continuous integration. Code and live report: `github.com/pgristow/qc-rescue-fastq-triage`.
 
 ---
-*Prepared by Peter Ristow, PhD — Roche Principal Scientist (NGS). Production engagements run an
+*Prepared by Peter Ristow, PhD — NGS bioinformatics specialist. Production engagements run an
 automated triage across your whole run under NDA.*
