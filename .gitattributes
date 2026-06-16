@@ -1,0 +1,4 @@
+# Keep shell scripts LF so they run correctly on Linux/WSL/CI regardless of host OS.
+*.sh text eol=lf
+*.py text eol=lf
+* text=auto

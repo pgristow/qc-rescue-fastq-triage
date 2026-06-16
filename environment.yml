@@ -1,0 +1,17 @@
+name: qc-rescue
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  - fastqc
+  - fastp
+  - multiqc
+  - seqkit
+  - pandas
+  - numpy
+  - matplotlib
+  - jupyter
+  - ipykernel
+  - nbformat
+  - quarto

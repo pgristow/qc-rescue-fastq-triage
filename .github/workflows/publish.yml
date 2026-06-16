@@ -1,0 +1,33 @@
+name: Reproduce
+
+# Regenerates the messy data, runs the full QC+fix pipeline, and renders the report
+# on every push (green badge = it reproduces from a clean clone).
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up conda environment
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: environment.yml
+          cache-environment: true
+
+      - name: Run QC pipeline + render
+        shell: bash -el {0}
+        run: make all
+
+      - name: Smoke-test outputs
+        shell: bash -el {0}
+        run: |
+          test -f docs/index.html
+          test -f docs/multiqc.html
+          test -f results/qc_summary.csv
+          echo "QC triage reproduced successfully from a clean clone."

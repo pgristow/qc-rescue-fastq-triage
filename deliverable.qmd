@@ -1,0 +1,66 @@
+---
+title: "FASTQ Quality-Control Triage — Summary Report"
+subtitle: "Sample deliverable · 4-sample run"
+author: "Peter Ristow, PhD — Principal Scientist (NGS)"
+date: today
+format:
+  typst:
+    papersize: a4
+    margin:
+      x: 1.8cm
+      y: 1.8cm
+    fontsize: 10pt
+execute:
+  echo: false
+jupyter: python3
+---
+
+```{python}
+import pandas as pd
+from IPython.display import Markdown
+df = pd.read_csv("results/qc_summary.csv", index_col=0)
+INJECTED = {"S1_clean": "none (baseline)", "S2_adapter": "adapter read-through",
+            "S3_lowqual": "low-quality 3' tails", "S4_overrep": "overrepresented sequence"}
+def dx(r):
+    iss = []
+    if r.adapter_pct > 15: iss.append("adapters")
+    if r.q30_before < 80:  iss.append("low quality")
+    if r.dup_pct > 30:     iss.append("duplication/contaminant")
+    return ", ".join(iss) if iss else "clean"
+n_bad = int(sum(dx(df.loc[s]) != "clean" for s in df.index))
+```
+
+**Executive summary.** Four samples were triaged for data-quality problems before analysis.
+**`{python} n_bad` of `{python} len(df)`** had issues — adapter read-through, low-quality tails, and an
+overrepresented/contaminant sequence — all **diagnosed and fixed**, with the remaining sample passing
+clean. Every read removed has a documented reason; cleaning was deliberately conservative to avoid
+introducing bias.
+
+### Diagnosis & fix (before → after)
+
+```{python}
+rows = []
+for s in df.index:
+    r = df.loc[s]
+    rows.append([s, INJECTED[s], dx(r), f"{r.q30_before:.0f}% → {r.q30_after:.0f}%",
+                 f"{r.reads_removed_pct:.1f}%"])
+cols = ["sample", "problem", "diagnosed", "Q30 before→after", "reads removed"]
+hdr = "| " + " | ".join(cols) + " |"
+sep = "| " + " | ".join(["---"] * len(cols)) + " |"
+body = ["| " + " | ".join(str(v) for v in row) + " |" for row in rows]
+Markdown("\n".join([hdr, sep, *body]))
+```
+
+**What this means.** All four samples are now usable. The value is the *judgment* — reading the QC
+correctly, fixing what's fixable, and not over-trimming — not running the tools. Because the defects
+were known, the diagnosis is provably correct.
+
+**Caveats.** Cross-species contamination (vs simple duplication) needs a screen such as Kraken2; a
+suspected sample swap is diagnosed via genotype/sex concordance, not read QC.
+
+**Reproducibility.** The full triage re-runs from a clean clone in minutes and is verified by
+continuous integration. Code and live report: `github.com/pgristow/qc-rescue-fastq-triage`.
+
+---
+*Prepared by Peter Ristow, PhD — Roche Principal Scientist (NGS). Production engagements run an
+automated triage across your whole run under NDA.*
